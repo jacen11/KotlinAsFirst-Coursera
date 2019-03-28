@@ -57,7 +57,7 @@ fun daysInMonth(month: Int, year: Int): Int {
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean = sqr(Math.pow(x2 - x1, 2.0) + Math.pow(y2 - y1, 2.0)) + r1 <= r2
+                 x2: Double, y2: Double, r2: Double): Boolean = Math.sqrt(Math.pow(x2 - x1, 2.0) + Math.pow(y2 - y1, 2.0)) + r1 <= r2
 
 
 /**
