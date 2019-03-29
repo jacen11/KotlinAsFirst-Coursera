@@ -239,4 +239,77 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun words(n: Int): String {
+    var one: Int = n % 10
+    var dec: Int
+    if (n % 100 / 10 != 1) {
+        dec = n % 100 / 10 * 10
+    } else {
+        dec = n % 100
+        one = 0
+    }
+
+    val handred: Int = n % 1000 / 100 * 100
+
+    val words: Map<Int, String> = mapOf(
+            0 to "",
+            1 to "одна",
+            2 to "два",
+            3 to "три",
+            4 to "четыре",
+            5 to "пять",
+            6 to "шесть",
+            7 to "семь",
+            8 to "восемь",
+            9 to "девять",
+            10 to "десять",
+            11 to "одиннадцать",
+            12 to "двенадцать",
+            13 to "тринадцать",
+            14 to "четырнадцать",
+            15 to "пятнадцать",
+            16 to "шестнадцать",
+            17 to "семнадцать",
+            18 to "восемнадцать",
+            19 to "девятнадцать",
+            20 to "двадцать",
+            30 to "тридцать",
+            40 to "сорок",
+            50 to "пятьдесят",
+            60 to "шестьдесят",
+            70 to "семьдесят",
+            80 to "восемьдесят",
+            90 to "девяносто",
+            100 to "сто",
+            200 to "двести",
+            300 to "триста",
+            400 to "четыресто",
+            500 to "пятьсот",
+            600 to "шестьсот",
+            700 to "семьсот",
+            800 to "восемьсот",
+            900 to "девятьсот"
+    )
+
+    val s = " ${words[handred]} ${words[dec]} ${words[one]} "
+    return s
+
+}
+
+fun russian(n: Int): String {
+    val thousand: Int = n / 1000
+
+    var wordForThousand: String
+    wordForThousand = when {
+        thousand == 0 -> ""
+        thousand % 10 in 5..9 -> "тысяч"
+        thousand % 100 in listOf(10, 11, 12, 13, 14, 15, 16, 17, 18, 19) -> "тысяч"
+        thousand % 100 in listOf(20, 30, 40, 50, 60, 70, 80, 90) -> "тысяч"
+        thousand in listOf(100, 200, 300, 400, 500, 600, 700, 800, 900) -> "тысяч"
+        else -> "тысячи"
+    }
+
+    val words: String = words(n / 1000).replace(" два ", " две ")
+    val s = "$words $wordForThousand ${words(n % 1000)}"
+    return s.trim().replace("  ", " ").replace("  ", " ")
+}
