@@ -283,7 +283,7 @@ fun words(n: Int): String {
             100 to "сто",
             200 to "двести",
             300 to "триста",
-            400 to "четыресто",
+            400 to "четыреста",
             500 to "пятьсот",
             600 to "шестьсот",
             700 to "семьсот",
@@ -306,10 +306,14 @@ fun russian(n: Int): String {
         thousand % 100 in listOf(10, 11, 12, 13, 14, 15, 16, 17, 18, 19) -> "тысяч"
         thousand % 100 in listOf(20, 30, 40, 50, 60, 70, 80, 90) -> "тысяч"
         thousand in listOf(100, 200, 300, 400, 500, 600, 700, 800, 900) -> "тысяч"
+        thousand % 10 == 1 -> "тысяча"
         else -> "тысячи"
     }
 
     val words: String = words(n / 1000).replace(" два ", " две ")
-    val s = "$words $wordForThousand ${words(n % 1000)}"
+    var s = "$words $wordForThousand ${words(n % 1000)}"
+    if (s.trim().substringAfterLast(" ") == "одна") {
+        s = s.replace("одна", "один")
+    }
     return s.trim().replace("  ", " ").replace("  ", " ")
 }
