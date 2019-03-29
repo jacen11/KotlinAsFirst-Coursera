@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
 
 import kotlin.math.sqrt
@@ -38,7 +39,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -132,7 +133,25 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var k = 0
+
+    if (x == 1) {
+        return k
+    }
+
+    var next = x
+    while (next != 1) {
+        if (next % 2 == 0) {
+            next /= 2
+            k++
+        } else {
+            next = 3 * next + 1
+            k++
+        }
+    }
+    return k
+}
 
 /**
  * Средняя
@@ -170,7 +189,18 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var k = n
+    var m = 0
+    while (k > 0) {
+        m = 10 * m + k % 10
+        k /= 10
+    }
+    if (m == n) {
+        return true
+    }
+    return false
+}
 
 /**
  * Средняя
