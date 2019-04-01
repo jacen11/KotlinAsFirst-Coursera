@@ -49,12 +49,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -143,7 +141,19 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+
+    val toLowerCase = str.toLowerCase()
+    var index = 0
+    val list: List<String> = toLowerCase.split(" ")
+    for (i in 0 until list.size) {
+        if (i != list.size - 1 && list[i] == list[i + 1]) {
+            return index
+        }
+        index += list[i].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная
@@ -156,7 +166,18 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description: String): String = TODO()
+data class Good(val name: String, val price: Double)
+
+fun mostExpensive(description: String): String {
+    if (description.isEmpty()) return ""
+
+    val list: List<List<String>> = description.split("; ").map { it.split(" ") }
+    val goods: MutableList<Good> = mutableListOf<Good>()
+
+    list.forEach { goods.add(Good(it[0], it[1].toDouble())) }
+
+    return goods.maxBy { it.price }!!.name
+}
 
 /**
  * Сложная
