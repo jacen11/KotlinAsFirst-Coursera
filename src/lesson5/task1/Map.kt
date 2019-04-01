@@ -130,7 +130,14 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+
+    val resultMap: MutableMap<String, Double> = mutableMapOf()
+    stockPrices.groupBy { it.first }.forEach {
+        resultMap.put(it.key, (it.value.sumByDouble { it.second } / it.value.size))
+    }
+    return resultMap
+}
 
 /**
  * Средняя
@@ -207,7 +214,15 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    if (chars.isEmpty()) return false
+    chars.forEach {
+        if (it !in word) {
+            return false
+        }
+    }
+    return true
+}
 
 /**
  * Средняя
@@ -221,7 +236,17 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+
+    val mapKeys = list.groupBy { it }
+    val resultMap: MutableMap<String, Int> = mutableMapOf()
+    mapKeys.forEach {
+        if (it.value.size > 1) {
+            resultMap.put(it.key, it.value.size)
+        }
+    }
+    return resultMap
+}
 
 /**
  * Средняя
